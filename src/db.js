@@ -7,6 +7,17 @@ import {
   DB_USER,
 } from "./config.js";
 
+// Debug: Log the database connection details
+console.log("🔍 DB Connection Details:");
+console.log({
+  DB_HOST,
+  DB_USER,
+  DB_PASSWORD: DB_PASSWORD ? "******" : "Not Set",
+  DB_PORT,
+  DB_DATABASE,
+});
+
+// Create the database pool
 export const pool = createPool({
   host: DB_HOST,
   user: DB_USER,
