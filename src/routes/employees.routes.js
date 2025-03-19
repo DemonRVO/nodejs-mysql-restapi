@@ -9,18 +9,18 @@ import {
 
 const router = Router();
 
-// GET all Employees
-router.get("/employees", getEmployees);
+// GET all clients
+router.get("/clients", getEmployees);
 
 // GET An Employee
-router.get("/employees/:id", getEmployee);
+router.get("/clients/:id", getEmployee);
 
 // DELETE An Employee
-router.delete("/employees/:id", deleteEmployee);
+router.delete("/clients/:id", deleteEmployee);
 
 // INSERT An Employee
-router.post("/employees", createEmployee);
+router.post("/clients", createEmployee);
 
-router.patch("/employees/:id", updateEmployee);
+router.put("/clients/:id", updateEmployee);
 
 export default router;

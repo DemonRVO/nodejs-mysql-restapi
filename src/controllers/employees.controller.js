@@ -2,7 +2,16 @@ import { pool } from "../db.js";
 
 export const getEmployees = async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM employee");
+    let [rows] = "";
+    if (req.body.destination) {
+      // This doesn't work, the database isn't responding correctly
+      [rows] = await pool.query(
+        "SELECT * FROM employee WHERE destination = ?",
+        [req.body.destination]
+      );
+    } else {
+      [rows] = await pool.query("SELECT * FROM employee");
+    }
     res.json(rows);
   } catch (error) {
     return res.status(500).json({ message: "Something goes wrong" });
