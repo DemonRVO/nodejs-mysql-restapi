@@ -12,7 +12,7 @@ console.log("🔍 DB Connection Details:");
 console.log({
   MYSQLHOST,
   MYSQLUSER,
-  MYSQLPASSWORD: DB_PASSWORD ? "******" : "Not Set",
+  MYSQLPASSWORD: MYSQLPASSWORD ? "******" : "Not Set",
   MYSQLPORT,
   MYSQLDATABASE,
 });
