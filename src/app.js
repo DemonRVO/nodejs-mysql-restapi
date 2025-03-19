@@ -1,6 +1,6 @@
 import express from "express";
 import morgan from "morgan";
-
+import authRoutes from "./routes/auth.routes.js";
 import employeesRoutes from "./routes/employees.routes.js";
 import indexRoutes from "./routes/index.routes.js";
 
@@ -11,19 +11,26 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // Routes
-app.get("/debug", (req, res) => {
-  console.log("🔍 Received Query Params:", req.query);
-  res.json({ receivedParams: req.query });
-});
-
-
 app.use("/", indexRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api", employeesRoutes);
 
-app.use((req, res, next) => {
-  res.status(404).json({ message: "Not found" });
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).json({
+    status: 'error',
+    message: err.message || 'Something went wrong!',
+    error: process.env.NODE_ENV === 'development' ? err : {}
+  });
 });
 
-
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ 
+    status: 'error',
+    message: "Route not found" 
+  });
+});
 
 export default app;
